@@ -1,0 +1,4 @@
+baseURL = 'https://rogerhendricks.github.io'
+languageCode = 'en-us'
+title = 'KeepOnPacing'
+theme = "ananke"
