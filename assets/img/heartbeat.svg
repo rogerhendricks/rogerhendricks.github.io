@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#14B8A6" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#10B981" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <!-- ECG Grid Background (subtle) -->
+  <g stroke="#10B981" stroke-width="0.1" opacity="0.15">
+    <path d="M 0,10 H 200 M 0,20 H 200 M 0,30 H 200 M 0,40 H 200 M 0,50 H 200 M 0,60 H 200 M 0,70 H 200 M 0,80 H 200 M 0,90 H 200" />
+    <path d="M 10,0 V 100 M 20,0 V 100 M 30,0 V 100 M 40,0 V 100 M 50,0 V 100 M 60,0 V 100 M 70,0 V 100 M 80,0 V 100 M 90,0 V 100 M 100,0 V 100 M 110,0 V 100 M 120,0 V 100 M 130,0 V 100 M 140,0 V 100 M 150,0 V 100 M 160,0 V 100 M 170,0 V 100 M 180,0 V 100 M 190,0 V 100" />
+  </g>
+  <!-- ECG Trace Path (Intrinsic beat + Paced beat with Pacing Spike) -->
+  <path d="M 0,50 L 15,50 C 20,42 25,42 30,50 L 40,50 L 43,55 L 48,10 L 53,75 L 56,50 L 70,50 C 75,40 85,40 90,50 L 110,50 L 110,90 L 111,20 L 112,50 L 115,50 C 122,90 135,90 140,50 C 145,25 150,25 155,50 L 200,50" 
+        fill="none" 
+        stroke="url(#glow)" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#shadow)" />
+</svg>
