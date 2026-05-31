@@ -1,0 +1,18 @@
+locale = "en"
+label = "English"
+direction = "ltr"
+weight = 1
+
+title = "KeepOnPacing"
+description = "A professional resource exploring cardiac device pacing, manufacturer timing systems, and clinical electrophysiology."
+
+[params]
+  dateFormat = "2 January 2006"
+  mainSections = ["posts"]
+
+[params.author]
+  name = "Roger Hendricks"
+  image = "img/heartbeat.svg"
+  headline = "Cardiac Pacing, Electrophysiology & Device Technology"
+  bio = "Welcome to KeepOnPacing. This blog provides detailed technical insights into cardiac pacemakers, manufacturer timing systems, and electrophysiology concepts."
+  links = []

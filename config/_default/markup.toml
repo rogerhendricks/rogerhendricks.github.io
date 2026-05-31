@@ -1,0 +1,25 @@
+# -- Markup --
+[goldmark]
+  [goldmark.renderer]
+    unsafe = true
+  [goldmark.extensions]
+    definitionList = true
+    footnote = true
+    linkify = true
+    linkifyProtocol = 'https'
+    strikethrough = true
+    table = true
+    taskList = true
+    typographer = true
+    [goldmark.extensions.passthrough]
+      enable = true
+      [goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)']]
+
+[highlight]
+  noClasses = false
+
+[tableOfContents]
+  startLevel = 2
+  endLevel = 4

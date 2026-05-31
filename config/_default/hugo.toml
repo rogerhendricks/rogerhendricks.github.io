@@ -1,0 +1,24 @@
+# -- Site Configuration --
+baseURL = 'https://rogerhendricks.github.io'
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+summaryLength = 50
+theme = "congo"
+
+[pagination]
+  pagerSize = 10
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[privacy]
+  [privacy.vimeo]
+    enableDNT = true
+  [privacy.x]
+    enableDNT = true
+  [privacy.youTube]
+    privacyEnhanced = true
+
+[services]
+  [services.x]
+    disableInlineCSS = true
