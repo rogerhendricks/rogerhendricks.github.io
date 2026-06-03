@@ -1,0 +1,11 @@
+## Timing by Manufacturer
+
+| Manufacturer      | Timing System                                                                                                                                                                                                                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Abbott            | Ventricular based =>VDD & DDI,when PV>MTR in DDD. Atrial based => DOO, DDD or when PV &lt; MTR.                                                                                                                                                                                                 |
+| Biotronik         | Atrial based timing for DDD; DDI and VDI are ventricular based timing, however there are exceptions: i.e PAC, PVC, VSP.                                                                                                                                                                         |
+| Boston Scientific |                                                                                                                                                                                                                                                                                                 |
+| Medtronic         | Atrial based timing for all devices that have atrial pacing: DDD, DDI, DVI, not VDI/VDIR. May shorten VA timing due to a shortened AV delay to provide consistent A-A, may cause V-V < LRL, (60,000/(lower rate interval + PAV − measured AV)                                                   |
+| MicroPort         | DDD => atrial based timing. PVCs (ventricular events not preceded by an atrial event) will reset all clocks as well as automatically add a nonprogrammable 500 ms atrial refractory period to prevent pacemaker‐mediated tachycardia Ventricular based timing if: VDD; DDI; DDD when PV >MTR; D |
+
+PV: P synchronous V pacing; MTR: Max Tracking Rate; VSP: V safety pacing

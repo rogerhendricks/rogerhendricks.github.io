@@ -34,8 +34,8 @@ The following table summarizes how each major manufacturer handles timing archit
 | **Abbott** (formerly St. Jude) | **Ventricular-based** in specific dual-chamber states; **Atrial-based** by default. | **Ventricular-based** for `VDD` & `DDI` modes, and during `DDD` when $PV > MTR$.<br>**Atrial-based** for `DOO`, `DDD` modes, or when $PV < MTR$. |
 | **Biotronik** | **Atrial-based** by default for dual-chamber modes. | Uses **Atrial-based** timing for `DDD` mode.<br>**Ventricular-based** timing is used for `DDI` and `VDI` modes, though exceptions apply during specific events like PACs, PVCs, or Ventricular Safety Pacing (VSP). |
 | **Boston Scientific** | **Atrial-based** | Uses **Atrial-based** timing in `DDD` mode to prioritize physiological AV synchrony. |
-| **Medtronic** | **Atrial-based** | **Atrial-based** timing is utilized for all devices and dual-chamber modes that support atrial pacing: `DDD`, `DDI`, and `DVI`. |
-| **MicroPort** (formerly Livanova/Sorin) | **Atrial-based** | Employs **Atrial-based** timing to maintain stable atrial cycles and promote intrinsic AV conduction. |
+| **Medtronic** | **Atrial-based** | **Atrial-based** timing is utilized for all devices that support atrial pacing (`DDD`, `DDI`, `DVI`, not `VDI`/`VDIR`). May shorten VA timing to provide consistent A-A intervals. |
+| **MicroPort** (formerly Livanova/Sorin) | **Atrial-based** and **Ventricular-based** | **Atrial-based** for `DDD`. **Ventricular-based** for `VDD`, `DDI`, and `DDD` when $PV > MTR$. PVCs reset clocks and add a 500 ms atrial refractory period. |
 
 ---
 
@@ -48,7 +48,10 @@ Abbott devices exhibit a dynamic shift in timing architecture depending on the a
 Biotronik utilizes a highly responsive **atrial-based** timing scheme in `DDD`. However, to prevent inappropriate ventricular tracking of rapid atrial events, it switches to **ventricular-based** timing during `DDI` and `VDI`. Additionally, complex algorithms modify this behavior during premature atrial contractions (PACs), premature ventricular contractions (PVCs), and ventricular safety pacing (VSP).
 
 ### Medtronic
-Medtronic maintains a highly consistent **atrial-based** timing structure across all dual-chamber modes that include atrial pacing (`DDD`, `DDI`, `DVI`). This maintains stable A-A intervals, keeping the physiological pace intact across mode transitions and reducing the risk of pacemaker-mediated tachycardia (PMT) when paired with modern search AV algorithms.
+Medtronic maintains a highly consistent **atrial-based** timing structure across all dual-chamber modes that include atrial pacing (`DDD`, `DDI`, `DVI`, but not `VDI`/`VDIR`). This maintains stable A-A intervals, keeping the physiological pace intact across mode transitions and reducing the risk of pacemaker-mediated tachycardia (PMT) when paired with modern search AV algorithms. Medtronic devices may shorten the VA timing due to a shortened AV delay to provide a consistent A-A interval, which may cause the V-V interval to be less than the Lower Rate Limit (LRL). This is calculated as `60,000 / (lower rate interval + PAV - measured AV)`.
+
+### MicroPort
+MicroPort (formerly Livanova/Sorin) utilizes **atrial-based** timing for `DDD` mode. However, they switch to **ventricular-based** timing if the mode is `VDD`, `DDI`, or `DDD` when PV > MTR. Additionally, PVCs (defined as ventricular events not preceded by an atrial event) will reset all clocks and automatically add a nonprogrammable 500 ms atrial refractory period to prevent pacemaker-mediated tachycardia.
 
 ---
 
@@ -59,7 +62,10 @@ Medtronic maintains a highly consistent **atrial-based** timing structure across
 * **VSP (Ventricular Safety Pacing):** A short sensing window triggered by an atrial pace, preventing cross-talk inhibition by pacing the ventricle early if noise is detected.
 * **PAC (Premature Atrial Contraction):** An early heartbeat originating in the atria.
 * **PVC (Premature Ventricular Contraction):** An early heartbeat originating in the ventricles.
+* **LRL (Lower Rate Limit):** The lowest heart rate the pacemaker will allow before delivering a pacing pulse.
+* **PAV (Paced AV Delay):** The programmed delay between an atrial paced event and the scheduled ventricular paced event.
 
 ---
 
-*What has been your experience when troubleshooting cross-talk or mode switching across these platforms? Leave a comment or reach out to discuss clinical cases!*
+
+{< pacemaker-sim >}

@@ -1,0 +1,241 @@
+<div
+    class="pacemaker-sim-container"
+    style="
+        font-family: sans-serif;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        background: #fff;
+        max-width: 840px;
+        margin: 2rem auto;
+    "
+>
+    <div
+        style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        "
+    >
+        <div>
+            <h3 style="margin-top: 0; margin-bottom: 5px">
+                Pacemaker Timing Simulator
+            </h3>
+            <p style="font-size: 0.9em; color: #666; margin: 0">
+                LR: 1,000ms | AVI: 200ms | AR: 150ms
+            </p>
+        </div>
+        <div style="text-align: right">
+            <label style="font-weight: bold; margin-right: 10px">Mode:</label>
+            <select
+                id="pacingMode"
+                style="padding: 5px; font-size: 1em; border-radius: 4px"
+            >
+                <option value="ventricular">Ventricular-Based</option>
+                <option value="atrial">Atrial-Based</option>
+            </select>
+        </div>
+    </div>
+
+    <canvas
+        id="ecgCanvas"
+        width="800"
+        height="200"
+        style="
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            width: 100%;
+            display: block;
+        "
+    ></canvas>
+
+    <div
+        style="
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        "
+    >
+        <div>
+            <div style="font-size: 0.9em; color: #555">
+                Current Cycle Length:
+                <strong id="cycleDisplay">1000 ms (60 bpm)</strong>
+            </div>
+            <div
+                id="statusText"
+                style="
+                    font-size: 0.85em;
+                    color: #007bff;
+                    height: 20px;
+                    margin-top: 5px;
+                    font-weight: bold;
+                "
+            >
+                Tracking normally...
+            </div>
+        </div>
+        <button
+            id="triggerRWave"
+            style="
+                background: #dc3545;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background 0.2s;
+            "
+        >
+            Trigger Sensed R-Wave (Vs)
+        </button>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById("ecgCanvas");
+    const ctx = canvas.getContext("2d");
+    const modeSelect = document.getElementById("pacingMode");
+    const triggerBtn = document.getElementById("triggerRWave");
+    const cycleDisplay = document.getElementById("cycleDisplay");
+    const statusText = document.getElementById("statusText");
+
+    let x = 0;
+    const speed = 2; // Pixels per frame
+    const baseInterval = 200; // Distance between base paces (4 beats fit in 800px)
+
+    let nextPaceTarget = baseInterval;
+    let mode = "ventricular";
+    let events = []; // State array to store { x: position, type: 'paced' | 'sensed' }
+    let inhibitNextPace = false;
+
+    function drawGrid() {
+        ctx.strokeStyle = "#e9ecef";
+        ctx.lineWidth = 1;
+        for (let i = 0; i < canvas.width; i += 20) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+        }
+        for (let j = 0; j < canvas.height; j += 20) {
+            ctx.beginPath();
+            ctx.moveTo(0, j);
+            ctx.lineTo(canvas.width, j);
+            ctx.stroke();
+        }
+    }
+
+    function updateDisplay(ms) {
+        let bpm = Math.round(60000 / ms);
+        cycleDisplay.innerText = `${ms} ms (${bpm} bpm)`;
+    }
+
+    function drawSpike(xPos, type) {
+        const isSensed = type === "sensed";
+        ctx.strokeStyle = isSensed ? "#dc3545" : "#212529";
+        ctx.fillStyle = isSensed ? "#dc3545" : "#212529";
+        ctx.lineWidth = 2;
+
+        // Draw the QRS spike
+        ctx.beginPath();
+        ctx.moveTo(xPos, 100);
+        ctx.lineTo(xPos, 40);
+        ctx.lineTo(xPos + 5, 160);
+        ctx.lineTo(xPos + 10, 100);
+        ctx.stroke();
+
+        // Add Vp / Vs label above the spike
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText(isSensed ? "Vs" : "Vp", xPos - 4, 30);
+    }
+
+    function animate() {
+        // Clear canvas completely each frame for crisp rendering
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+
+        // 1. Draw the continuous baseline up to the current sweep position
+        ctx.beginPath();
+        ctx.moveTo(0, 100);
+        ctx.lineTo(x, 100);
+        ctx.strokeStyle = "#6c757d";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // 2. Redraw all logged pacing/sensing events
+        events.forEach((ev) => {
+            if (ev.x <= x) {
+                drawSpike(ev.x, ev.type);
+            }
+        });
+
+        // 3. Handle pacing logic when sweep line reaches the target
+        if (x >= nextPaceTarget) {
+            if (inhibitNextPace) {
+                // Atrial mode: skip this ventricular pace, but keep the clock moving
+                inhibitNextPace = false;
+                statusText.innerText = "Pace Inhibited (Atrial-Based)";
+            } else {
+                // Normal pace
+                events.push({ x: nextPaceTarget, type: "paced" });
+                updateDisplay(1000);
+                statusText.innerText = "Paced Beat (Vp)";
+            }
+            // Advance the clock target regardless of inhibition
+            nextPaceTarget += baseInterval;
+        }
+
+        // 4. Draw the blue sweep line
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.strokeStyle = "rgba(0, 123, 255, 0.6)";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // 5. Advance time (x position)
+        x += speed;
+
+        // 6. Reset at the end of the canvas
+        if (x > canvas.width) {
+            x = 0;
+            events = []; // Clear state for the new sweep
+            nextPaceTarget = baseInterval;
+            inhibitNextPace = false;
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    modeSelect.addEventListener("change", (e) => {
+        mode = e.target.value;
+        statusText.innerText = `Switched to ${mode}-based timing.`;
+    });
+
+    triggerBtn.addEventListener("click", () => {
+        // Prevent triggering multiple senses too close together to avoid overlapping UI
+        if (events.length > 0 && x - events[events.length - 1].x < 40) return;
+
+        // Log the sensed event at current sweep position
+        events.push({ x: x, type: "sensed" });
+
+        if (mode === "ventricular") {
+            // VENTRICULAR-BASED: Instantly reset the master clock
+            nextPaceTarget = x + baseInterval;
+            updateDisplay(950);
+            statusText.innerText = "Sensed (Vs) - Clock Reset";
+        } else {
+            // ATRIAL-BASED: Flag the next scheduled pace to be inhibited.
+            // The nextPaceTarget remains unchanged.
+            inhibitNextPace = true;
+            updateDisplay(1050);
+            statusText.innerText = "Sensed (Vs) - Next Pace Inhibited";
+        }
+    });
+
+    // Initialize animation loop
+    requestAnimationFrame(animate);
+</script>
