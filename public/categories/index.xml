@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on KeepOnPacing</title>
-    <link>https://rogerhendricks.github.io/categories/</link>
-    <description>Recent content in Categories on KeepOnPacing</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://rogerhendricks.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
+	<channel>
+		<title>Categories on KeepOnPacing</title>
+		<link>http://localhost:1313/categories/</link>
+		<description>Recent content in Categories on KeepOnPacing</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 31 May 2026 11:00:00 +1000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Patient</title>
+				<link>http://localhost:1313/categories/patient/</link>
+				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
+				<guid>http://localhost:1313/categories/patient/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Device Technical</title>
+				<link>http://localhost:1313/categories/device-technical/</link>
+				<pubDate>Fri, 01 Apr 2022 19:24:49 +1100</pubDate>
+				<guid>http://localhost:1313/categories/device-technical/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

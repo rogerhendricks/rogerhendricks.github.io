@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on KeepOnPacing</title>
-    <link>https://rogerhendricks.github.io/tags/</link>
-    <description>Recent content in Tags on KeepOnPacing</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://rogerhendricks.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
+	<channel>
+		<title>Tags on KeepOnPacing</title>
+		<link>http://localhost:1313/tags/</link>
+		<description>Recent content in Tags on KeepOnPacing</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 31 May 2026 11:00:00 +1000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Cardiology</title>
+				<link>http://localhost:1313/tags/cardiology/</link>
+				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
+				<guid>http://localhost:1313/tags/cardiology/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>CIED</title>
+				<link>http://localhost:1313/tags/cied/</link>
+				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
+				<guid>http://localhost:1313/tags/cied/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Pacemakers</title>
+				<link>http://localhost:1313/tags/pacemakers/</link>
+				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
+				<guid>http://localhost:1313/tags/pacemakers/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Patient</title>
+				<link>http://localhost:1313/tags/patient/</link>
+				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
+				<guid>http://localhost:1313/tags/patient/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Clinical</title>
+				<link>http://localhost:1313/tags/clinical/</link>
+				<pubDate>Fri, 01 Apr 2022 19:24:49 +1100</pubDate>
+				<guid>http://localhost:1313/tags/clinical/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Device-Timing</title>
+				<link>http://localhost:1313/tags/device-timing/</link>
+				<pubDate>Fri, 01 Apr 2022 19:24:49 +1100</pubDate>
+				<guid>http://localhost:1313/tags/device-timing/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

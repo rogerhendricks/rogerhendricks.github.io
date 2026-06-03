@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Posts on KeepOnPacing</title>
-		<link>http://localhost:1313/posts/</link>
-		<description>Recent content in Posts on KeepOnPacing</description>
+		<title>Patient on KeepOnPacing</title>
+		<link>http://localhost:1313/tags/patient/</link>
+		<description>Recent content in Patient on KeepOnPacing</description>
 		<generator>Hugo</generator>
 		<language>en</language>
 		
@@ -12,20 +12,13 @@
 		
 			<lastBuildDate>Sun, 31 May 2026 11:00:00 +1000</lastBuildDate>
 		
-			<atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/patient/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Matching Pacemaker Modes to Patient Clinical Profiles</title>
 				<link>http://localhost:1313/posts/matching_device_to_patient_blog/</link>
 				<pubDate>Sun, 31 May 2026 11:00:00 +1000</pubDate>
 				<guid>http://localhost:1313/posts/matching_device_to_patient_blog/</guid>
 				<description>Selecting the correct pacing mode is crucial to avoid pacemaker syndrome and maximize cardiac output. This guide breaks down the clinical indications for VVI, DDD, and other common modes.</description>
-			</item>
-			<item>
-				<title>Pacemaker Manufacturer Timing Systems: A Clinical Comparison</title>
-				<link>http://localhost:1313/posts/companies-view-of-time/</link>
-				<pubDate>Fri, 01 Apr 2022 19:24:49 +1100</pubDate>
-				<guid>http://localhost:1313/posts/companies-view-of-time/</guid>
-				<description>Understanding how different cardiac device manufacturers handle pacing timing is crucial for optimal device programming. We compare atrial-based vs. ventricular-based timing behaviors across major pacemaker manufacturers.</description>
 			</item>
 	</channel>
 </rss>
